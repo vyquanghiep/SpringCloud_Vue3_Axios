@@ -3,8 +3,16 @@ package com.example.service;
 import com.example.model.Product;
 import com.example.repository.ProductRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.List;
+import java.util.UUID;
 
 @Service
 public class ProductSeviceIml implements ProductSevice{
@@ -35,5 +43,19 @@ public class ProductSeviceIml implements ProductSevice{
     public String deleteProduct(int id) {
         productRepository.deleteById(id);
         return "Sản phẩm remove ||" + id;
+    }
+
+    @Value("${upload.dir}")
+    private String uploadDir;
+
+    @Override
+    public String uploadImage(int id,MultipartFile file) throws IOException {
+        // Tạo đường dẫn lưu trữ ảnh
+        String imageUrl = uploadDir +  "/" + id + "/" + UUID.randomUUID() + "_" + file.getOriginalFilename();
+
+        // Lưu ảnh vào thư mục lưu trữ
+        Files.copy(file.getInputStream(), Paths.get(imageUrl), StandardCopyOption.REPLACE_EXISTING);
+
+        return imageUrl;
     }
 }

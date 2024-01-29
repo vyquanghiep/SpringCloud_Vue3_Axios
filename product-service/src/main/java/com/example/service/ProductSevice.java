@@ -1,6 +1,9 @@
 package com.example.service;
 
 import com.example.model.Product;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 import java.util.List;
 
 public interface ProductSevice {
@@ -10,6 +13,8 @@ public interface ProductSevice {
     Product getProductById(int id);
 
     String deleteProduct(int id);
+
+    String uploadImage(int id,MultipartFile file) throws IOException;
 
     List<Product> getByKeyword(String keyword);
 

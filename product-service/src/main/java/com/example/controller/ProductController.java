@@ -7,6 +7,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
+
 import java.util.List;
 
 @RestController
@@ -33,6 +34,21 @@ public class ProductController {
     @DeleteMapping("/{id}")
     public void DeleteProduct(@PathVariable("id") Integer id) {
         productSevice.deleteProduct(id);
+    }
+
+
+    @PostMapping("/{productId}/uploadImage")
+    public ResponseEntity<String> handleImageUpload(
+            @PathVariable Integer id,
+            @RequestParam("file") MultipartFile file) {
+        try {
+
+            String imageUrl = productSevice.uploadImage(id, file);
+
+            return ResponseEntity.ok(imageUrl);
+        } catch (Exception e) {
+            return ResponseEntity.status(500).body("Failed to upload image");
+        }
     }
 
     @GetMapping("/byKeyword")

@@ -35,5 +35,10 @@ public class Product {
     @Column(name="typeproduct")
     private String typeproduct;
 
+    @ManyToOne
+    @JoinColumn(name = "category_id")
+    private Category category;
+
+
 
 }

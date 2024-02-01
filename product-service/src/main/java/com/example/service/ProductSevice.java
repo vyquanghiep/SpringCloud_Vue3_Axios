@@ -14,7 +14,7 @@ public interface ProductSevice {
 
     String deleteProduct(int id);
 
-    String uploadImage(int id,MultipartFile file) throws IOException;
+
 
     List<Product> getByKeyword(String keyword);
 

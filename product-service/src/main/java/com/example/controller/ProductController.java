@@ -37,19 +37,6 @@ public class ProductController {
     }
 
 
-    @PostMapping("/{productId}/uploadImage")
-    public ResponseEntity<String> handleImageUpload(
-            @PathVariable Integer id,
-            @RequestParam("file") MultipartFile file) {
-        try {
-
-            String imageUrl = productSevice.uploadImage(id, file);
-
-            return ResponseEntity.ok(imageUrl);
-        } catch (Exception e) {
-            return ResponseEntity.status(500).body("Failed to upload image");
-        }
-    }
 
     @GetMapping("/byKeyword")
     public List<Product>  findUserByKeyword(@RequestParam("keyword") String keyword) {

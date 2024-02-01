@@ -45,17 +45,7 @@ public class ProductSeviceIml implements ProductSevice{
         return "Sản phẩm remove ||" + id;
     }
 
-    @Value("${upload.dir}")
-    private String uploadDir;
 
-    @Override
-    public String uploadImage(int id,MultipartFile file) throws IOException {
-        // Tạo đường dẫn lưu trữ ảnh
-        String imageUrl = uploadDir +  "/" + id + "/" + UUID.randomUUID() + "_" + file.getOriginalFilename();
 
-        // Lưu ảnh vào thư mục lưu trữ
-        Files.copy(file.getInputStream(), Paths.get(imageUrl), StandardCopyOption.REPLACE_EXISTING);
 
-        return imageUrl;
-    }
 }
